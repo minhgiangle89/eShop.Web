@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.Data.Enum
+namespace eShopSolution.Data.Enums
 {
     public enum Status
     {
-        InActive,
+        InActive = 0,
         Active
     }
 }
