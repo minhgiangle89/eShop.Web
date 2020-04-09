@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using eShopSolution.WebApp.Models;
+using EShopSolution.WebApp.Models;
 
-namespace eShopSolution.WebApp.Controllers
+namespace EShopSolution.WebApp.Controllers
 {
     public class HomeController : Controller
     {
