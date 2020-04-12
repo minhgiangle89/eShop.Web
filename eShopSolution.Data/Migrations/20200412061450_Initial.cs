@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace eShopSolution.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,10 +69,10 @@ namespace eShopSolution.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    Message = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
+                    Email = table.Column<string>(maxLength: 200, nullable: false),
+                    PhoneNumber = table.Column<string>(maxLength: 200, nullable: false),
+                    Message = table.Column<string>(nullable: false),
                     Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -86,7 +86,7 @@ namespace eShopSolution.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 20, nullable: false),
                     IsDefault = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -125,7 +125,7 @@ namespace eShopSolution.Data.Migrations
                     ProductIds = table.Column<string>(nullable: true),
                     ProductCategoryIds = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -171,18 +171,17 @@ namespace eShopSolution.Data.Migrations
                     Message = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: false),
                     Provider = table.Column<string>(nullable: true),
-                    UserId = table.Column<Guid>(nullable: false),
-                    AppUserId = table.Column<Guid>(nullable: true)
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transactions_AppUser_AppUserId",
-                        column: x => x.AppUserId,
+                        name: "FK_Transactions_AppUser_UserId",
+                        column: x => x.UserId,
                         principalTable: "AppUser",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,12 +191,11 @@ namespace eShopSolution.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    SeoDescription = table.Column<string>(nullable: true),
-                    SeoTitle = table.Column<string>(nullable: true),
-                    LanguageId = table.Column<string>(nullable: true),
-                    SeoAlias = table.Column<string>(nullable: true),
-                    LanguageId1 = table.Column<int>(nullable: true)
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
+                    SeoDescription = table.Column<string>(maxLength: 500, nullable: true),
+                    SeoTitle = table.Column<string>(maxLength: 200, nullable: true),
+                    LanguageId = table.Column<int>(nullable: false),
+                    SeoAlias = table.Column<string>(maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -209,11 +207,11 @@ namespace eShopSolution.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CategoryTranslations_Languages_LanguageId1",
-                        column: x => x.LanguageId1,
+                        name: "FK_CategoryTranslations_Languages_LanguageId",
+                        column: x => x.LanguageId,
                         principalTable: "Languages",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -226,22 +224,21 @@ namespace eShopSolution.Data.Migrations
                     Quantity = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    AppUserId = table.Column<Guid>(nullable: true)
+                    DateCreated = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Carts_AppUser_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AppUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Carts_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Carts_AppUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AppUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -302,24 +299,23 @@ namespace eShopSolution.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    Details = table.Column<string>(nullable: true),
+                    Details = table.Column<string>(maxLength: 500, nullable: true),
                     SeoDescription = table.Column<string>(nullable: true),
                     SeoTitle = table.Column<string>(nullable: true),
-                    SeoAlias = table.Column<string>(nullable: true),
-                    LanguageId = table.Column<string>(nullable: true),
-                    LanguageId1 = table.Column<int>(nullable: true)
+                    SeoAlias = table.Column<string>(maxLength: 200, nullable: false),
+                    LanguageId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductTranslations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductTranslations_Languages_LanguageId1",
-                        column: x => x.LanguageId1,
+                        name: "FK_ProductTranslations_Languages_LanguageId",
+                        column: x => x.LanguageId,
                         principalTable: "Languages",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProductTranslations_Products_ProductId",
                         column: x => x.ProductId,
@@ -355,14 +351,14 @@ namespace eShopSolution.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_AppUserId",
-                table: "Carts",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Carts_ProductId",
                 table: "Carts",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserId",
+                table: "Carts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategoryTranslations_CategoryId",
@@ -370,9 +366,9 @@ namespace eShopSolution.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryTranslations_LanguageId1",
+                name: "IX_CategoryTranslations_LanguageId",
                 table: "CategoryTranslations",
-                column: "LanguageId1");
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_ProductId",
@@ -395,9 +391,9 @@ namespace eShopSolution.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductTranslations_LanguageId1",
+                name: "IX_ProductTranslations_LanguageId",
                 table: "ProductTranslations",
-                column: "LanguageId1");
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductTranslations_ProductId",
@@ -405,9 +401,9 @@ namespace eShopSolution.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_AppUserId",
+                name: "IX_Transactions_UserId",
                 table: "Transactions",
-                column: "AppUserId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
