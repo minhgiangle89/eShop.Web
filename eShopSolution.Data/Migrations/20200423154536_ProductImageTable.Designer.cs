@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopSolution.Data.EF;
 
 namespace eShopSolution.Data.Migrations
 {
     [DbContext(typeof(EShopDBContext))]
-    partial class EShopDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200423154536_ProductImageTable")]
+    partial class ProductImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,7 +182,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = new Guid("1ad298bd-670e-4c66-b6ee-96b41698fc1e"),
-                            ConcurrencyStamp = "d526a88c-a4ce-44b0-9a36-300378e9a27e",
+                            ConcurrencyStamp = "9af09442-a53b-46f3-a005-e86e77dc3aa8",
                             Description = "Administrator Role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -257,7 +259,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("50e6a4f2-d964-46b0-8ae3-2c944f2e20f8"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a4c5f042-feaf-458f-853b-bd23fac589fd",
+                            ConcurrencyStamp = "d632f832-82f7-458e-bc5f-aa73ed763a01",
                             Dob = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "some-admin-email@nonce.fake",
                             EmailConfirmed = true,
@@ -266,7 +268,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "some-admin-email@nonce.fake",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMsR6zSCZxhjk6qXMG3phVUeSHlbgi46TEARKRhNsdqLYpJcyd3S9otoYjqOE0v/FQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEmgqkQdAgR6lARlRV+LwaP6DCzYNTuaPB++lX4hX7bW3TvCoyqxKrok02XigF0G7A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -610,7 +612,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2020, 5, 2, 10, 48, 12, 630, DateTimeKind.Local).AddTicks(7259),
+                            DateCreated = new DateTime(2020, 4, 23, 22, 45, 35, 950, DateTimeKind.Local).AddTicks(6690),
                             OriginalPrice = 1000000m,
                             Price = 1200000m,
                             Stock = 0,
